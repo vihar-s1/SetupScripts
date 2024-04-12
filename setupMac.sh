@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+# Check if running as root
+if [ "$(id -u)" != "0" ]; then
+    echo "This script requires superuser privileges. Please Enter root-user Password..."
+    sudo -iu root "$(realpath $0)"
+    if [ $? -ne 0 ]; then
+        echo "Error logging as root user. Aborting..."
+        exit 1
+    fi
+    exit 0 # Exit safely since script ran successfully with sudo access
+fi
+
 # Set script name
 script_name=$(basename "$0")
 script_name="${script_name%.*}"
