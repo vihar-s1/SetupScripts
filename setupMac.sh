@@ -72,6 +72,7 @@ brew install --cask virtualbox > "${CASK_LOG_DIR}/virtualbox.log" 2>&1
 brew install --cask mongodb-compass > "${CASK_LOG_DIR}/mongodb-compass.log" 2>&1
 # Personal
 brew install --cask vlc > "${CASK_LOG_DIR}/vlc.log" 2>&1
+brew install -cask spotify > "${CASK_LOG_DIR}/spotify.log" 2>&1
 brew install --cask whatsapp > "${CASK_LOG_DIR}/whatsapp.log" 2>&1
 brew install --cask google-drive > "${CASK_LOG_DIR}/google-drive.log" 2>&1
 brew install --cask google-chrome > "${CASK_LOG_DIR}/google-chrome.log" 2>&1
