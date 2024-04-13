@@ -3,8 +3,8 @@
 # Check if running as root
 if [ "$(id -u)" != "0" ]; then
     echo "This script requires superuser privileges. Please Enter root-user Password..."
-    sudo -iu root "$(realpath $0)"
-    if [ $? -ne 0 ]; then
+
+    if ! sudo -iu root "$(realpath "$0")"; then
         echo "Error logging as root user. Aborting..."
         exit 1
     fi
@@ -20,6 +20,7 @@ LOG_DIR="$HOME/Desktop/${script_name}-logs"
 TAP_LOG_DIR="${LOG_DIR}/taps"
 FORMULA_LOG_DIR="${LOG_DIR}/formulas"
 CASK_LOG_DIR="${LOG_DIR}/casks"
+BREW_LOG="${LOG_DIR}/brew.log"
 
 # Create log directories
 mkdir -p "${TAP_LOG_DIR}" "${FORMULA_LOG_DIR}" "${CASK_LOG_DIR}"
@@ -40,11 +41,13 @@ log_info() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] INFO: $1" >> "$TMP"
 }
 
+# BEFORE EVERYTHING, MAKE  SURE TO INSTALL xcode
+xcode-select --install >> "${BREW_LOG}" 2>&1
+
 # Homebrew Installation and Update
 if ! command -v brew &> /dev/null; then
     log_info "Homebrew is not installed. Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" >> "$TMP" 2>&1 &
-    wait $!
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" >> "${BREW_LOG}" 2>&1
     if [ $? -ne 0 ]; then
         log_error "Failed to install Homebrew."
         exit 1
@@ -52,11 +55,12 @@ if ! command -v brew &> /dev/null; then
 else
     current_version=$(brew --version | awk 'NR==1 {print $2}')
     log_info "Found Homebrew version: ${current_version}. Attempting to Update..."
-    brew update >> "$TMP" 2>&1 &
-    wait $!
-    if [ $? -ne 0 ]; then
+
+    if ! brew update >> "${BREW_LOG}" 2>&1; then
         log_error "Failed to update Homebrew."
         exit 1
+    else
+        brew upgrade >> "${BREW_LOG}" 2>&1
     fi
 fi
 
@@ -68,12 +72,14 @@ log_info "Fetching taps..."
 log_info "Installing formulas..."
 # List of formulas to install
 formulas=(
-    "python3"
-    "gradle"
+    "python3"               # Languages
+    "git"
+    "gradle"                # Package Manager
+    "maven"
     "node"
-    "gedit"
+    "gedit"                 # Editors
     "nano"
-    "elasticsearch-full"
+    "elasticsearch-full"    # Tools and Libraries
     "kibana-full"
     "mongosh"
     "mongodb-community"
@@ -90,14 +96,15 @@ log_info "Completed Installing all formulas. Check logs to see their status"
 log_info "Installing casks..."
 # List of casks to install
 casks=(
-    "sublime-text"
+    "sublime-text"      # Editors
     "intellij-idea"
     "intellij-idea-ce"
     "visual-studio-code"
-    "docker"
+    "docker"            # GUI tools
+    "postman"
     "virtualbox"
     "mongodb-compass"
-    "vlc"
+    "vlc"               # Personal Use Apps
     "spotify"
     "whatsapp"
     "google-drive"
