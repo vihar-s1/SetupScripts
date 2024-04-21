@@ -66,7 +66,7 @@ fi
 
 # Fetching Taps
 log_info "Fetching taps..."
-{ brew tap homebrew/services; brew tap homebrew/cask; brew tap elastic/tap; brew tap mongodb/tap; } >> "${TAP_LOG_DIR}/tap.log" 2>&1
+{ brew tap homebrew/services; brew tap elastic/tap; brew tap mongodb/brew; } >> "${TAP_LOG_DIR}/tap.log" 2>&1
 
 # Installing Formulas
 log_info "Installing formulas..."
@@ -74,6 +74,7 @@ log_info "Installing formulas..."
 formulas=(
     "python3"               # Languages
     "git"
+    "git-lfs"
     "gradle"                # Package Manager
     "maven"
     "node"
@@ -110,12 +111,17 @@ casks=(
     "google-drive"
     "google-chrome"
     "microsoft-edge"
+    "jellybeansoup-netflix"
 )
 for cask in "${casks[@]}"; do
     brew install --cask "$cask" >> "${CASK_LOG_DIR}/${cask}.log" 2>&1 &
 done
 wait # wait for all cask installation to complete
 log_info "Completed Installing all casks. Check logs to see their status"
+
+log_info "Running additional Commands..."
+
+git lfs install
 
 # Print completion message
 log_info "Installation complete. Logs are available at: $LOG_DIR"
