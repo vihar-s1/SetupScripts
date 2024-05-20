@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Set script name
 script_name=$(basename "$0")
@@ -69,7 +69,7 @@ casks=(
     "microsoft-edge"
 )
 for cask in "${casks[@]}"; do
-    brew install "$cask" >> "${CASK_LOG_DIR}/${cask}.log" 2>&1
+    brew install --cask "$cask" >> "${CASK_LOG_DIR}/${cask}.log" 2>&1
 done
 wait # wait for all cask installation to complete
 log_info "Completed installing all casks. Check logs to see their status"
