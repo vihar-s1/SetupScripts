@@ -1,16 +1,5 @@
 #!/usr/bin/env bash
 
-# Check if running as root
-if [ "$(id -u)" != "0" ]; then
-    echo "This script requires superuser privileges. Please Enter root-user Password..."
-
-    if ! sudo -iu root "$(realpath "$0")"; then
-        echo "Error logging as root user. Aborting..."
-        exit 1
-    fi
-    exit 0 # Exit safely since script ran successfully with sudo access
-fi
-
 # Set script name
 script_name=$(basename "$0")
 script_name="${script_name%.*}"
@@ -25,20 +14,14 @@ BREW_LOG="${LOG_DIR}/brew.log"
 # Create log directories
 mkdir -p "${TAP_LOG_DIR}" "${FORMULA_LOG_DIR}" "${CASK_LOG_DIR}"
 
-# Temporary log file
-TMP="${script_name}.tmp"
-
-# Clear temporary log file
-: > "$TMP"
-
 # Function to log errors
 log_error() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $1" >> "$TMP"
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $1"
 }
 
 # Function to log informational messages
 log_info() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] INFO: $1" >> "$TMP"
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] INFO: $1"
 }
 
 # BEFORE EVERYTHING, MAKE  SURE TO INSTALL xcode
@@ -60,7 +43,12 @@ else
         log_error "Failed to update Homebrew."
         exit 1
     else
-        brew upgrade >> "${BREW_LOG}" 2>&1
+        if ! brew upgrade >> "${BREW_LOG}" 2>&1; then
+            log_error "update successful, upgrade failed."
+        else
+            new_version=$(brew --version | awk 'NR==1 {print $2}')
+            log_info "Homebrew Update successful. current installed version: ${new_version}"
+        fi
     fi
 fi
 
@@ -87,8 +75,12 @@ formulas=(
     "zookeeper"
     "kafka"
 )
+
+    # Installing formulas needs to be serialized
+    # since running them in parallel can cause issues due to common dependencies.
 for formula in "${formulas[@]}"; do
-    brew install "$formula" >> "${FORMULA_LOG_DIR}/${formula}.log" 2>&1 &
+    # brew install "$formula" >> "${FORMULA_LOG_DIR}/${formula}.log" 2>&1 &
+    brew install "$formula" >> "${FORMULA_LOG_DIR}/${formula}.log" 2>&1
 done
 wait # wait for all formula installation to complete
 log_info "Completed Installing all formulas. Check logs to see their status"
