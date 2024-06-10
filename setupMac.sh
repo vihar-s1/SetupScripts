@@ -80,6 +80,7 @@ formulas=(
     # since running them in parallel can cause issues due to common dependencies.
 for formula in "${formulas[@]}"; do
     # brew install "$formula" >> "${FORMULA_LOG_DIR}/${formula}.log" 2>&1 &
+    log_info "installing formula: ${formula}"
     brew install "$formula" >> "${FORMULA_LOG_DIR}/${formula}.log" 2>&1
 done
 wait # wait for all formula installation to complete
@@ -104,6 +105,7 @@ casks=(
     "google-chrome"
     "microsoft-edge"
     "jellybeansoup-netflix"
+    "slack"
 )
 for cask in "${casks[@]}"; do
     brew install --cask "$cask" >> "${CASK_LOG_DIR}/${cask}.log" 2>&1 &
