@@ -115,9 +115,11 @@ log_info "Running additional Commands..."
 git lfs install
 # moving bash profile file to root location
 
-if [ -x ${BASH_PROFILE} ]; then
+if [ -e "${BASH_PROFILE}" ]; then
     log_info "configuring bash profile..."
-    cp ${BASH_PROFILE} ~/.bash_profile
+    cp "${BASH_PROFILE}" ~/.bash_profile
+else
+    log_error "bash profile not found at: ${BASH_PROFILE}"
 fi
 
 log_info "Importing custom terminal profile..."
@@ -128,5 +130,7 @@ if [ -x "./macOS-scripts/configureTerminal.sh" ]; then
     else
         log_info "Profile imported successfully."
     fi
+else
+    log_error "Could not find configureTerminal.sh or it is not executable."
 fi
 
