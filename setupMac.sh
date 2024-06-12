@@ -52,7 +52,7 @@ log_info() {
 # BEFORE EVERYTHING, MAKE  SURE TO INSTALL xcode
 xcode-select --install >> "${BREW_LOG}" 2>&1
 
-# Homebrew Installation and Update
+#---------- HOMEBREW INSTALLATION AND UPDATE ----------#
 if ! command -v brew &> /dev/null; then
     log_info "Homebrew is not installed. Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" >> "${BREW_LOG}" 2>&1
@@ -81,11 +81,11 @@ else
     fi
 fi
 
-# Fetching Taps
+#---------- FETCHING TAPS ----------#
 log_info "Fetching taps..."
 { brew tap homebrew/services; brew tap elastic/tap; brew tap mongodb/brew; } >> "${TAP_LOG_DIR}/tap.log" 2>&1
 
-# Installing FORMULAS
+#---------- INSTALLING FORMULAS ----------#
 log_info "Installing formulas..."
 
     # Installing formula needs to be serialized
@@ -98,7 +98,7 @@ done
 wait # wait for all formula installation to complete
 log_info "Completed Installing all formulas. Check logs to see their status"
 
-# Installing Casks
+#---------- INSTALLING CASKS ----------#
 log_info "Installing casks..."
 
 for cask in "${CASKS[@]}"; do
@@ -109,12 +109,14 @@ log_info "Completed Installing all casks. Check logs to see their status"
 
 log_info "Installation complete. Logs are available at: $LOG_DIR"
 
+
+#---------- RUNNING ADDDITIONAL SETUP COMMANDS ----------#
 log_info "Running additional Commands..."
 
 # Installing git lfs
 git lfs install
-# moving bash profile file to root location
 
+# moving bash profile file to root location
 if [ -e "${BASH_PROFILE}" ]; then
     log_info "configuring bash profile..."
     cp "${BASH_PROFILE}" ~/.bash_profile
@@ -122,6 +124,19 @@ else
     log_error "bash profile not found at: ${BASH_PROFILE}"
 fi
 
+# Disabling Elasticsearch ml functionalities
+es_config_path=$(brew info elasticsearch | grep Config | awk 'NR==1 {print $2}')
+es_config_path="${es_config_path%/}" # Remove trailing '/' if any
+es_config_file="${es_config_path}/elasticsearch.yml"
+
+if [ -e "${es_config_file}" ]; then
+	log_info "disabling ES Machine Learning functionalities at: ${es_config_file}"
+	echo -e "\nxpack.ml.enabled: false" >> ${es_config_file}
+else
+	log_error "could not locate ES config file at: ${es_config_file}"
+fi
+
+#---------- IMPORTING CUSTOM TERMINAL PROFILE ----------#
 log_info "Importing custom terminal profile..."
 if [ -x "./macOS-scripts/configureTerminal.sh" ]; then
 
