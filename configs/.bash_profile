@@ -5,5 +5,5 @@ if [ -x "/opt/homebrew/bin/brew" ]; then
 fi
 
 if [ -x "/usr/libexec/java_home" ]; then
-    export JAVA_HOME=$(/usr/libexec/java_home)
+    export ES_JAVA_HOME=$(/usr/libexec/java_home)
 fi
