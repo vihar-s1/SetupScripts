@@ -2,9 +2,10 @@
 
 ## setUpMac.sh
 
-![Version](https://img.shields.io/badge/Version-1.0.0-green.svg)
+![Version](https://img.shields.io/badge/Version-2.0.0-green.svg)
 
 Bash script to install/update homebrew, and then using homebrew, install other formulas and casks.
+- v-2.0.0 contains additional changes for configuring git lfs, disabling elasticseach ML capabilities, import terminal profile and configure bash terminal
 
 ## setUpLinux.sh
 
