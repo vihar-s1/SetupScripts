@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
 #----- SCRIPT CONFIG PARAMETERS -----
+# List of all taps
+TAPS=(
+    "homebrew/services" "elastic/tap"
+    "mongodb/brew" "quarkusio/tap"
+)
+
 # List of formulas to install
 FORMULAS=(
     "python3" "git" "git-lfs"
@@ -8,7 +14,7 @@ FORMULAS=(
     "gedit" "nano"
     "elasticsearch-full" "kibana-full"
     "mongosh" "mongodb-community"
-    "zookeeper" "kafka"
+    "zookeeper" "kafka" "quarkus"
 )
 
 # List of casks to install
@@ -83,7 +89,13 @@ fi
 
 #---------- FETCHING TAPS ----------#
 log_info "Fetching taps..."
-{ brew tap homebrew/services; brew tap elastic/tap; brew tap mongodb/brew; } >> "${TAP_LOG_DIR}/tap.log" 2>&1
+
+for tap in "${TAPS[@]}"; do
+    log_info "tapping: ${tap}"
+    brew tap "${tap}" >> "${TAP_LOG_DIR}/tap.log" 2>&1
+done
+wait # wait for all repositories to be tapped
+log_info "Completed tapping the repositories (taps). Check logs to see their status"
 
 #---------- INSTALLING FORMULAS ----------#
 log_info "Installing formulas..."
