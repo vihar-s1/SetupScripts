@@ -15,7 +15,8 @@ FORMULAS=(
     "elasticsearch-full" "kibana-full"
     "mongosh" "mongodb-community"
     "zookeeper" "kafka" "quarkus" 
-    "graphana"
+    "graphana" "graphana-agent"
+    "influxdb" "influxdb-cli"
 )
 
 # List of casks to install
