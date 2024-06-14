@@ -14,7 +14,8 @@ FORMULAS=(
     "gedit" "nano"
     "elasticsearch-full" "kibana-full"
     "mongosh" "mongodb-community"
-    "zookeeper" "kafka" "quarkus"
+    "zookeeper" "kafka" "quarkus" 
+    "graphana"
 )
 
 # List of casks to install
