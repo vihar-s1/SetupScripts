@@ -26,7 +26,7 @@ CASKS=(
     "vlc" "spotify" "whatsapp"
     "google-drive" "google-chrome" "microsoft-edge"
     "jellybeansoup-netflix"
-    "slack" "balenaetcher"
+    "slack" "balenaetcher" "github"
 )
 
 TERMINAL_PROFILE="./configs/Custom.terminal"
