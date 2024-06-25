@@ -22,7 +22,8 @@ FORMULAS=(
 # List of casks to install
 CASKS=(
     "sublime-text" "intellij-idea" "intellij-idea-ce" "visual-studio-code"
-    "docker" "postman" "mongodb-compass"
+    "docker" "minikube"
+    "postman" "mongodb-compass"
     "vlc" "spotify" "whatsapp"
     "google-drive" "google-chrome" "microsoft-edge"
     "jellybeansoup-netflix"
