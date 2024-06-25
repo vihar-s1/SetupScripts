@@ -14,6 +14,7 @@ FORMULAS=(
     "gedit" "nano"
     "elasticsearch-full" "kibana-full"
     "mongosh" "mongodb-community"
+    "redis"
     "zookeeper" "kafka" "quarkus" 
     "graphana" "graphana-agent"
     "influxdb" "influxdb-cli"
