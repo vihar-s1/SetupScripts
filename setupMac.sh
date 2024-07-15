@@ -25,10 +25,11 @@ CASKS=(
     "sublime-text" "intellij-idea" "intellij-idea-ce" "visual-studio-code"
     "docker" "minikube"
     "postman" "mongodb-compass"
-    "vlc" "spotify" "whatsapp"
+    "vlc" "spotify" "whatsapp" "telegram"
     "google-drive" "google-chrome" "microsoft-edge"
     "jellybeansoup-netflix"
     "slack" "balenaetcher" "github"
+    "wireshark"
 )
 
 TERMINAL_PROFILE="./configs/Custom.terminal"
