@@ -66,7 +66,7 @@ xcode-select --install >> "${BREW_LOG}" 2>&1
 #---------- HOMEBREW INSTALLATION AND UPDATE ----------#
 if ! command -v brew &> /dev/null; then
     log_info "Homebrew is not installed. Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" >> "${BREW_LOG}" 2>&1
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" >> "${BREW_LOG}" 2>&1
     if [ $? -ne 0 ]; then
         log_error "Failed to install Homebrew."
         exit 1
