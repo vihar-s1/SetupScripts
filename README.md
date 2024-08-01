@@ -16,7 +16,7 @@ The script is untested and has high chance of being filled with errors.
 
 ## Add New Tools
 
-- To add new tools to the list of existing `formulas` and `casks`, go to the [latest tools branch](https://github.com/vihar-s1/setupScripts/tree/tools/new-tools-01) and create a new PR for that branch.
+- To add new tools to the list of existing `formulas` and `casks`, go to the [latest tools branch](https://github.com/vihar-s1/setupScripts/tree/tools/new-tools-02) and create a new PR for that branch.
 - The `tools/new-tools-*` branch will be merged in the main branch once sufficient changes are present. A new `tools/new-tools-*` branch will created after that.
 - Branch naming convention
   - `tools/cask/<tool name>` if adding to *casks*
