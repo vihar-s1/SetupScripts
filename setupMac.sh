@@ -14,17 +14,22 @@ FORMULAS=(
     "gedit" "nano"
     "elasticsearch-full" "kibana-full"
     "mongosh" "mongodb-community"
-    "zookeeper" "kafka" "quarkus"
+    "redis"
+    "zookeeper" "kafka" "quarkus" 
+    "graphana" "graphana-agent"
+    "influxdb" "influxdb-cli"
 )
 
 # List of casks to install
 CASKS=(
     "sublime-text" "intellij-idea" "intellij-idea-ce" "visual-studio-code"
-    "docker" "postman" "mongodb-compass"
-    "vlc" "spotify" "whatsapp"
+    "docker" "minikube"
+    "postman" "mongodb-compass"
+    "vlc" "spotify" "whatsapp" "telegram"
     "google-drive" "google-chrome" "microsoft-edge"
     "jellybeansoup-netflix"
-    "slack"
+    "slack" "balenaetcher" "github"
+    "wireshark"
 )
 
 TERMINAL_PROFILE="./configs/Custom.terminal"
