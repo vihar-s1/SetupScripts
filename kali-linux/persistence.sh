@@ -11,27 +11,17 @@ DRIVE_PATH="/dev/sdb"
 PARTITION_START="3.5GiB"
 PARTITION_END="43.5GiB"
 
-echo "updating packages..."
-apt-get update
+# Function to log errors
+log_error() {
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $1"
+}
 
-echo "upgrading packages..."
-apt-get upgrade
+# Function to log informational messages
+log_info() {
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] INFO: $1"
+}
 
-echo "installing gedit..."
-apt-get install gedit
-
-echo "cloning anonsurf..."
-git clone https://github.com/und3rf10w/kali-anonsurf.git
-
-if [ -e "${ANONSURF_DIR}" ]; then
-    echo -e "repository cloned...installing anonsurf..."
-    cd "${ANONSURF_DIR}"
-    ./installer.sh
-    cd ..
-else
-    echo "directory not found: ${ANONSURF_DIR}"
-fi
-
+log_info "creating partition..."
 # Check which of the two works
 # - fdisk ${usb} <<< $(printf ""n\np\n\n\n\nw)
 # - part ${usb} mkparted primary ${PARTITION_START} ${PARTITION_END}
@@ -39,9 +29,13 @@ fi
 MOUNT_PARTITION="${DRIVE_PATH}3"
 MOUNT_PATH="/mnt/my_usb"
 
+log_info "setting ext4 persistence at partition: ${MOUNT_PARTITION}"
 mkfs.ext4  -L persistence "${MOUNT_PARTITION}"
 
+log_info "mounting the partition at path: ${MOUNT_PATH}"
 mkdir -p "${MOUNT_PATH}"
 mount "${MOUNT_PARTITION}" ${MOUNT_PATH}"
 echo "/ union" | sudo tee "${MOUNT_PATH}/persistence.conf"
+
+log_info "unmounting the partition"
 umount "${MOUNT_PARTITION}"
