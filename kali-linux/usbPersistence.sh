@@ -6,7 +6,6 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-ANONSURF_DIR="kali-anonsurf"
 DRIVE_PATH="/dev/sdb"
 PARTITION_START="3.5GiB"
 PARTITION_END="43.5GiB"
