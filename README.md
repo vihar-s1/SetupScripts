@@ -1,18 +1,20 @@
 # SetupScripts
 
-## setUpMac.sh
+## mac-os
 
 ![Version](https://img.shields.io/badge/Version-2.0.0-green.svg)
 
-Bash script to install/update homebrew, and then using homebrew, install other formulas and casks.
+Bash script(s) to install/update homebrew, and then using homebrew, install other formulas and casks.
 - v-2.0.0 contains additional changes for configuring git lfs, disabling elasticseach ML capabilities, import terminal profile and configure bash terminal
 
-## setUpLinux.sh
+## kali-linux
 
-![Version](https://img.shields.io/badge/version-0.0.1-red.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
-Bash script to update package manager `apt` and install the tools and libraries in linux system.
-The script is untested and has high chance of being filled with errors.
+- Bash scripts to setup kali linux by installing *anonsurf* and updating apt packages.
+- contains additional scripts to setup persistence and encrypted persistence on kali linux usb boot with custom partition start and endpoints.
+
+> NOTE: the script is not yet tested and so may contain some bugs that need to be fixed.
 
 ## Add New Tools
 
