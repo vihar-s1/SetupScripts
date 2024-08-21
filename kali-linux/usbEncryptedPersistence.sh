@@ -16,7 +16,7 @@ PARTITION_END="43.5GiB"
 log_info "creating partition..."
 # Check which of the two works
 # - fdisk ${usb} <<< $(printf ""n\np\n\n\n\nw)
-# - parted ${usb} mkpart primary ${PARTITION_START} ${PARTITION_END}
+parted ${usb} mkpart primary ${PARTITION_START} ${PARTITION_END}
 
 MOUNT_PARTITION="${DRIVE_PATH}3"
 MOUNT_FOLDER="my_usb"
