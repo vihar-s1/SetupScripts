@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ./components/functions.sh
+
 # root pr# root privileges are required to setup
 if [ "$EUID" -ne 0 ]; then
     echo -e "script requires root privilege.\nusage: sudo $0"
@@ -13,15 +15,6 @@ APT_GET_DIR="${LOG_DIR}/apt-get.log"
 GIT_LOG="${LOG_DIR}/git.log"
 ANONSURF_LOG="${LOG_DIR}/anonsurf.log"
 
-# Function to log errors
-log_error() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $1"
-}
-
-# Function to log informational messages
-log_info() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] INFO: $1"
-}
 
 log_info "updating packages..."
 apt-get update >> "${APT_GET_DIR}" 2>&1

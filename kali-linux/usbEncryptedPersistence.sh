@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ./components/functions.sh
+
 # root privileges are required to setup
 if [ "$EUID" -ne 0 ]; then
     echo -e "script requires root privilege.\nusage: sudo $0"
@@ -10,15 +12,6 @@ DRIVE_PATH="/dev/sdb"
 PARTITION_START="3.5GiB"
 PARTITION_END="43.5GiB"
 
-# Function to log errors
-log_error() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $1"
-}
-
-# Function to log informational messages
-log_info() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] INFO: $1"
-}
 
 log_info "creating partition..."
 # Check which of the two works

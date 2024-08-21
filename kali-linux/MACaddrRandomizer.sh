@@ -1,20 +1,12 @@
 #!/usr/bin/env bash
 
+source ./components/functions.sh
+
 # root privileges are required to setup
 if [ "$EUID" -ne 0 ]; then
     echo -e "script requires root privilege.\nusage: sudo ./setup.sh"
     exit 1
 fi
-
-# Function to log errors
-log_error() {
-    echo -e "[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $1"
-}
-
-# Function to log informational messages
-log_info() {
-    echo -e "[$(date +'%Y-%m-%d %H:%M:%S')] INFO: $1"
-}
 
 
 # Checking if network interface card is provided or not

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source functions.sh
+
 # root privileges are required to setup
 if [ "$EUID" -ne 0 ]; then
     echo -e "script requires root privilege.\nusage: sudo $0"
@@ -9,15 +11,6 @@ fi
 DRIVE_PATH="/dev/sdb3"
 LUKS_HEADER_BACKUP_FILE="luksheader.back"
 
-# Function to log errors
-log_error() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $1"
-}
-
-# Function to log informational messages
-log_info() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] INFO: $1"
-}
 
 # Backup LUKS keyslots and encrypt them
 log_info "backing up LUKS header..."
