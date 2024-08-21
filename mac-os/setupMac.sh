@@ -154,10 +154,11 @@ else
 fi
 
 #---------- IMPORTING CUSTOM TERMINAL PROFILE ----------#
-log_info "Importing custom terminal profile..."
-if [ -x "./macOS-scripts/configureTerminal.sh" ]; then
 
-    if ! ./macOS-scripts/configureTerminal.sh $TERMINAL_PROFILE; then
+log_info "Importing custom terminal profile..."
+if [ -x "./configureTerminal.sh" ]; then
+
+    if ! ./configureTerminal.sh $TERMINAL_PROFILE; then
         log_error "Error importing terminal profile."
     else
         log_info "Profile imported successfully."
