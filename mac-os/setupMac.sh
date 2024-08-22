@@ -34,6 +34,12 @@ CASKS=(
 
 TERMINAL_PROFILE="./configs/Custom.terminal"
 BASH_PROFILE="./configs/.bash_profile"
+
+DOCK_APPLICATIONS=(
+    "WhatsApp.app" "Slack.app" "IntelliJ IDEA CE.app" "Spotify.app"
+    "Google Chrome.app" "Microsoft Edge.app" "Visual Studio Code.app"
+)
+
 #----- SCRIPT CONFIG PARAMETERS -----
 
 # Set script name
@@ -128,6 +134,7 @@ log_info "Installation complete. Logs are available at: $LOG_DIR"
 
 
 #---------- RUNNING ADDDITIONAL SETUP COMMANDS ----------#
+
 log_info "Running additional Commands..."
 
 # Installing git lfs
@@ -167,3 +174,23 @@ else
     log_error "Could not find configureTerminal.sh or it is not executable."
 fi
 
+#---------- CONFIGURING DOCK ----------#
+
+log_info "Configuring Dock..."
+
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock tilesize -int 50
+defaults write com.apple.dock largesize -int 88
+defaults write com.apple.dock magnification -bool true
+defaults write com.apple.dock show-recents -bool false
+defaults write com.apple.dock orientation -string "bottom"
+
+# Remove all current applications from the Dock to add new ones
+defaults write com.apple.dock persistent-apps -array
+
+for app in "${DOCK_APPLICATIONS[@]}"; do
+    defaults write com.apple.dock persistent-apps -array-add "{\"tile-data\"={\"file-data\"={\"_CFURLString\"=\"file:///Applications/${app}\";\"_CFURLStringType\"=15;};};}"
+done
+
+# Restarting dock to apply changes
+killall Dock
