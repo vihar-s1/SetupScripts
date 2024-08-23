@@ -29,7 +29,7 @@ CASKS=(
     "google-drive" "google-chrome" "microsoft-edge"
     "jellybeansoup-netflix"
     "slack" "balenaetcher" "github"
-    "wireshark"
+    "wireshark" "obsidian"
 )
 
 TERMINAL_PROFILE="./configs/Custom.terminal"
