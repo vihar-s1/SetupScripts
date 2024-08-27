@@ -25,10 +25,9 @@ CASKS=(
     "sublime-text" "intellij-idea" "intellij-idea-ce" "visual-studio-code"
     "docker" "minikube"
     "postman" "mongodb-compass"
-    "vlc" "spotify" "whatsapp" "telegram"
+    "vlc" "spotify" "whatsapp"
     "google-drive" "google-chrome" "microsoft-edge"
-    "jellybeansoup-netflix"
-    "slack" "balenaetcher" "github"
+    "slack" "balenaetcher"
     "wireshark" "obsidian"
 )
 
