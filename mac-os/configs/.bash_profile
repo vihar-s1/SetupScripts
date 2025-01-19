@@ -1,4 +1,4 @@
-########## PATHS ##########
+##### Set PATHS #####
 
 if [ -x "/opt/homebrew/bin/brew" ]; then
     ## For Apple Silicon Macs
@@ -6,34 +6,18 @@ if [ -x "/opt/homebrew/bin/brew" ]; then
 fi
 
 if [ -x "/usr/libexec/java_home" ]; then
-    export ES_JAVA_HOME=$(/usr/libexec/java_home)
+    # export ES_JAVA_HOME=$(/usr/libexec/java_home)
     export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
 
-########## ALIASES AND FUNCTIONS ##########
+##### Common Purpose Alias #####
 
-##### Gradle #####
-
-spotless() {
-    args="";
-    if [ $# -gt 0 ]; then
-        for chart in $@
-        do
-            args=":${chart}:spotlessApply ${args}"
-        done
-    else
-        args="spotlessApply"
-    fi
-    echo "running ./gradlew ${args}"
-    ./gradlew ${args}
-}
-
-
-##### GIT #####
-alias gstash="git stash"
+### git Alias ###
 alias gstat="git status"
+alias gstash="git stash"
 alias gspop="git stash pop"
+alias gsdrop="git stash drop"
 alias gpush="git push origin @"
 alias gpforce="git push origin @ --force"
 alias gprforce="git pull origin main --rebase && git push origin @ --force"
@@ -42,16 +26,22 @@ alias glog="git log --oneline"
 alias gref="git reflog"
 alias gs="git switch"
 alias gsc="git switch --create"
+alias gfo="git fetch origin"
 alias gcp="git cherry-pick"
 gcpo() {
     git fetch origin $1 && git cherry-pick $1
 }
 alias grsoft="git reset --soft"
 alias grhard="git reset --hard"
+alias gri="git rebase -i"
+grih() {
+    git rebase -i HEAD~$1
+}
+alias gb="git branch"
+alias gbD="git branch -D"
 
-
-##### BREW #####
+### Brew Alias ###
 alias bsearch="brew search"
 alias binfo="brew info"
-alias bfinl="brew install"
-alias bcinl="brew install --cask"
+alias bfin="brew install"
+alias bcin="brew install --cask"
