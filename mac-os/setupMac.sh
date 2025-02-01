@@ -24,7 +24,7 @@ FORMULAS=(
 CASKS=(
     "sublime-text" "intellij-idea" "intellij-idea-ce" "visual-studio-code"
     "docker" "minikube"
-    "postman" "mongodb-compass"
+    "postman" "mongodb-compass" "redisinsight"
     "vlc" "spotify" "whatsapp"
     "google-drive" "google-chrome" "microsoft-edge"
     "slack" "balenaetcher"
