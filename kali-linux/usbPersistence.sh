@@ -4,7 +4,7 @@ source ./components/functions.sh
 
 # root privileges are required to setup
 if [ "$EUID" -ne 0 ]; then
-    echo -e "script requires root privilege.\nusage: sudo ./setup.sh"
+    echo -e "script requires root privilege.\nusage: sudo $0"
     exit 1
 fi
 
