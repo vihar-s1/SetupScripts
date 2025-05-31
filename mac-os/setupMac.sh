@@ -28,7 +28,7 @@ CASKS=(
     "vlc" "spotify" "whatsapp"
     "google-drive" "google-chrome" "microsoft-edge"
     "slack" "balenaetcher"
-    "wireshark" "obsidian"
+    "wireshark" "obsidian" "maccy"
 )
 
 TERMINAL_PROFILE="./configs/Custom.terminal"
